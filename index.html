@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIUD 2025 - Programma Congresso</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #8B1538 0%, #B85450 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8B1538 0%, #B85450 100%);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .filters {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            position: sticky;
+            top: 120px;
+            z-index: 99;
+        }
+
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .filter-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #8B1538;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 0.75rem;
+            border: 2px solid #8B1538;
+            background: white;
+            color: #8B1538;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: #8B1538;
+            color: white;
+        }
+
+        .search-container {
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #8B1538;
+        }
+
+        .content {
+            padding: 1rem;
+        }
+
+        .day-section {
+            margin-bottom: 2rem;
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, #8B1538 0%, #B85450 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .day-header h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .day-header .date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .session-card {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-left: 4px solid #8B1538;
+        }
+
+        .session-header {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .session-time {
+            font-weight: 600;
+            color: #8B1538;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .session-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .session-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .session-room, .session-type, .session-ecm {
+            padding: 0.25rem 0.5rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .session-room {
+            background: #B85450;
+            color: white;
+        }
+
+        .session-type {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .session-ecm {
+            background: #28a745;
+            color: white;
+        }
+
+        .session-content {
+            padding: 1rem;
+        }
+
+        .session-moderators {
+            margin-bottom: 0.75rem;
+        }
+
+        .session-moderators strong {
+            color: #8B1538;
+        }
+
+        .session-program {
+            list-style: none;
+        }
+
+        .session-program li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f8f9fa;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .session-program li:last-child {
+            border-bottom: none;
+        }
+
+        .program-time {
+            font-weight: 600;
+            color: #8B1538;
+            min-width: 50px;
+            font-size: 0.9rem;
+        }
+
+        .program-item {
+            flex: 1;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        .favorite-btn.active {
+            color: #ff6b6b;
+        }
+
+        .personal-program-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 1rem;
+            background: #8B1538;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(139, 21, 56, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .personal-program-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .export-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            margin: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: calc(100% - 2rem);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .filter-btn {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.6rem;
+            }
+            
+            .session-title {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>SIUD 2025</h1>
+            <p>49° Congresso Nazionale SIUD<br>
+            23° Congresso SIUD Fisioterapisti, Infermieri, Ostetriche<br>
+            Bologna, 26-28 Giugno • Hotel Savoia Regency</p>
+        </header>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label class="filter-label">Giorni</label>
+                <div class="filter-buttons" id="dayFilters">
+                    <button class="filter-btn active" data-day="all">Tutti</button>
+                    <button class="filter-btn" data-day="2025-06-26">Gio 26</button>
+                    <button class="filter-btn" data-day="2025-06-27">Ven 27</button>
+                    <button class="filter-btn" data-day="2025-06-28">Sab 28</button>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Sale</label>
+                <div class="filter-buttons" id="roomFilters">
+                    <button class="filter-btn active" data-room="all">Tutte</button>
+                    <button class="filter-btn" data-room="auditorium">Auditorium</button>
+                    <button class="filter-btn" data-room="napoleon">Sala Napoleon</button>
+                    <button class="filter-btn" data-room="nettuno">Sala Nettuno</button>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Tipologia</label>
+                <div class="filter-buttons" id="typeFilters">
+                    <button class="filter-btn active" data-type="all">Tutte</button>
+                    <button class="filter-btn" data-type="workshop">Workshop</button>
+                    <button class="filter-btn" data-type="lettura">Letture</button>
+                    <button class="filter-btn" data-type="sessione">Sessioni</button>
+                    <button class="filter-btn" data-type="abstract">Abstract</button>
+                    <button class="filter-btn" data-type="sponsor">Sponsorizzate</button>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Cerca relatori, moderatori o argomenti...">
+            </div>
+        </div>
+
+        <main class="content" id="programContent">
+            <!-- Il contenuto verrà generato dinamicamente -->
+        </main>
+
+        <button class="export-btn hidden" id="exportBtn">📥 Esporta Programma Personale</button>
+        <button class="personal-program-toggle" id="personalToggle" title="Visualizza programma personale">⭐</button>
+    </div>
+
+    <script>
+        // Dati del programma
+        const programData = [
+            {
+                date: "2025-06-26",
+                dayName: "Giovedì 26 Giugno",
+                sessions: [
+                    {
+                        id: "reg-26",
+                        time: "09.30-11.45",
+                        title: "Registrazione Partecipanti",
+                        room: "auditorium",
+                        type: "registrazione",
+                        moderators: "",
+                        program: []
+                    },
+                    {
+                        id: "corso-retention",
+                        time: "10.00-11.30",
+                        title: "Corso Precongressuale - La ritenzione urinaria",
+                        room: "auditorium",
+                        type: "workshop",
+                        moderators: "Coordinatori: M. Fiori, E. Fragalà, E. Lamanna, V. Vagnoni",
+                        program: [
+                            { time: "10.00", item: "RU nell'uomo - O. Saleh" },
+                            { time: "10.10", item: "RU nella donna - M. Bacchiani" },
+                            { time: "10.20", item: "RU nel neurologico - E. Fragalà" },
+                            { time: "10.30", item: "Approccio conservativo - L. Amaducci, A. Mazzini" },
+                            { time: "10.40", item: "Chirurgia - A. Feruzzi" },
+                            { time: "10.50", item: "Neuromodulazione non invasiva - C. Sedioli" },
+                            { time: "11.05", item: "Neuromodulazione invasiva - F. Cappellano" },
+                            { time: "11.20", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "inaugurazione",
+                        time: "11.45-12.15",
+                        title: "Inaugurazione",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: false,
+                        moderators: "A. Giammò, E. Brunocilla, E. Fragalà, R. Gunelli, R. Schiavina",
+                        program: [
+                            { time: "", item: "Prof. Giovanni Molari, Magnifico Rettore Alma Mater Studiorum - Università di Bologna" },
+                            { time: "", item: "Dr.ssa Chiara Gibertoni, Direttore Generale IRCCS Azienda Ospedaliero-Universitaria di Bologna" },
+                            { time: "", item: "Dr. Luigi Bagnoli, Presidente Ordine dei Medici-Chirurghi e degli Odontoiatri di Bologna" }
+                        ]
+                    },
+                    {
+                        id: "lettura-zanollo",
+                        time: "12.15-12.45",
+                        title: "Lettura Zanollo",
+                        room: "auditorium",
+                        type: "lettura",
+                        ecm: false,
+                        moderators: "Introduce: A. Giammò",
+                        program: [
+                            { time: "", item: "The role and timing of urodynamics in 2025 - G. Vignoli" }
+                        ]
+                    },
+                    {
+                        id: "controversie-funzionali",
+                        time: "12.45-13.30",
+                        title: "Controversie Funzionali... Talk interattivo multidisciplinare",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: "ECM 1",
+                        moderators: "Moderatore: F. Fusco",
+                        program: [
+                            { time: "", item: "Presenter: E. Pisacreta, S. Tammaro, B. Turchi" },
+                            { time: "", item: "Esperti: M. Balzarro, C. De Nunzio, E. Russo" },
+                            { time: "", item: "Provoker: A. Pastore" }
+                        ]
+                    },
+                    {
+                        id: "bla-bladder",
+                        time: "12.45-13.30",
+                        title: "Bla...Bla...Bladder and Bowel - La stitichezza è donna: quattro chiacchiere su... disfunzioni intestinali",
+                        room: "nettuno",
+                        type: "sessione",
+                        ecm: "FIO - ECM 2",
+                        moderators: "Conduce: A. Cicalese",
+                        program: [
+                            { time: "", item: "Talk: G. Alessandrini, S. Ascanelli, G. Frasca, A. Fulvio" }
+                        ]
+                    },
+                    {
+                        id: "spazio-ics",
+                        time: "13.30-14.15",
+                        title: "Spazio ICS - From basic science to future treatments",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: false,
+                        moderators: "Introduce: C. De Nunzio",
+                        program: [
+                            { time: "13.35", item: "Detrusor underactivity - T. Tarcan" },
+                            { time: "13.55", item: "Detrusor overactivity - M. Drake" }
+                        ]
+                    }
+                ]
+            },
+            {
+                date: "2025-06-27",
+                dayName: "Venerdì 27 Giugno",
+                sessions: [
+                    {
+                        id: "workshop-addiction",
+                        time: "08.00-10.00",
+                        title: "WORKSHOP A - Addictive lifestyle and pelvic floor dysfunction",
+                        room: "napoleon",
+                        type: "workshop",
+                        moderators: "Coordinatori: V. Mancini, S. Musco - Moderatori: G. Lamberti, F. Savoca, M. Spinelli",
+                        program: [
+                            { time: "08.00", item: "Alimentazione e microbiota intestinale - G. Bazzocchi" },
+                            { time: "08.15", item: "Sedentarietà - E. Bertolucci" },
+                            { time: "08.30", item: "Alcol - S. Musco" },
+                            { time: "08.45", item: "Fumo - E. Fragalà" },
+                            { time: "09.00", item: "Gaming - G. Mosiello" },
+                            { time: "09.15", item: "Ipersessualità - G. Sampogna" },
+                            { time: "09.30", item: "Sostanze stupefacenti - M.L. Gallo" },
+                            { time: "09.45", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "workshop-incontinenza",
+                        time: "08.00-10.00",
+                        title: "WORKSHOP B - Incontinenza urinaria femminile: punti essenziali in una nuova era",
+                        room: "auditorium",
+                        type: "workshop",
+                        moderators: "Coordinatori: M. Balzarro, V. Li Marzi - Moderatori: A. Biroli, G. Campagna, M. Soligo",
+                        program: [
+                            { time: "08.00", item: "Anatomia chirurgica e funzionale del pavimento pelvico femminile - G. Campagna" },
+                            { time: "08.12", item: "11 sfumature di incontinenza urinaria femminile - L. Vacca" },
+                            { time: "08.24", item: "Urodinamica non invasiva ed invasiva nell'incontinenza urinaria - E. Rubilotta" },
+                            { time: "08.36", item: "Incontinenza urinaria da urgenza: da dove partire... - L. Pelizzari" },
+                            { time: "08.48", item: "... e dove arrivare - E. Russo" },
+                            { time: "09.00", item: "Incontinenza urinaria da sforzo: da dove partire... - L. De Palma" },
+                            { time: "09.12", item: "...dove arrivare - M. Balzarro" },
+                            { time: "09.24", item: "LUTS e prolasso organi pelvici - M. Serati" },
+                            { time: "09.36", item: "Complicanze dei trattamenti per incontinenza urinaria - E. Illiano" },
+                            { time: "09.48", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "workshop-mist",
+                        time: "08.00-10.00",
+                        title: "WORKSHOP C - Trattamenti mini invasivi per BPO (MIST)",
+                        room: "nettuno",
+                        type: "workshop",
+                        moderators: "Coordinatori: C. De Nunzio, F. Fusco - Moderatori: P. Ditonno, A. Pastore, S. Serni",
+                        program: [
+                            { time: "08.00", item: "Dalla TURP alle MIST: 40 anni di evoluzioni tecnologiche - A. Cicione" },
+                            { time: "08.15", item: "Quale MIST per quale prostata - C. De Nunzio" },
+                            { time: "08.30", item: "Quale MIST per quale paziente - P. Spatafora" },
+                            { time: "08.45", item: "Come definire l'outcome dopo MIST - C. Manfredi" },
+                            { time: "09.00", item: "Complicanze delle MIST - S. De Cillis" },
+                            { time: "09.15", item: "Quando le MIST falliscono - M. Gacci" },
+                            { time: "09.30", item: "Clinical case - A. Franco" },
+                            { time: "09.45", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "lettura-eau",
+                        time: "10.00",
+                        title: "Lettura EAU",
+                        room: "auditorium",
+                        type: "lettura",
+                        moderators: "Introduce: A. Giammò",
+                        program: [
+                            { time: "", item: "The central role of benign prostatic obstruction (BPO) in the management of male LUTS: a multidimensional issue - J. N. Cornu" }
+                        ]
+                    },
+                    {
+                        id: "lettura-sinug",
+                        time: "10.30",
+                        title: "Lettura SINUG",
+                        room: "auditorium",
+                        type: "lettura",
+                        moderators: "Introduce: S. Musco",
+                        program: [
+                            { time: "", item: "How to manage chronic urinary retention in females? - S. Arlandis" }
+                        ]
+                    },
+                    {
+                        id: "lettura-tcs",
+                        time: "10.50",
+                        title: "Lettura Turkish Continence Society (TCS)",
+                        room: "auditorium",
+                        type: "lettura",
+                        moderators: "Introduce: F. Savoca",
+                        program: [
+                            { time: "", item: "How to manage chronic urinary retention in males? - A. Ergen" }
+                        ]
+                    },
+                    {
+                        id: "oab-goodbye",
+                        time: "11.10",
+                        title: "OAB: Goodbye Urodynamics",
+                        room: "auditorium",
+                        type: "sessione",
+                        moderators: "Moderatore: E. Finazzi Agrò - Discussants: M. Drake, A. Tubaro",
+                        program: [
+                            { time: "", item: "Report on Future trial - Y. Al Salhi" }
+                        ]
+                    }
+                ]
+            },
+            {
+                date: "2025-06-28",
+                dayName: "Sabato 28 Giugno",
+                sessions: [
+                    {
+                        id: "assemblea-soci",
+                        time: "09.00-10.00",
+                        title: "Assemblea Soci SIUD",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: false,
+                        moderators: "",
+                        program: []
+                    },
+                    {
+                        id: "spazio-fic",
+                        time: "10.00-11.00",
+                        title: "Spazio FIC - FIC e SIUD: insieme... per una Sanità migliore",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: false,
+                        moderators: "Moderatori: A. Biroli, E. Ciotti, G. Del Popolo",
+                        program: [
+                            { time: "10.00", item: "Introduzione - G. Del Popolo" },
+                            { time: "10.10", item: "Pari opportunità nella prevenzione, diagnosi e cura dell'incontinenza - R. Carone" },
+                            { time: "10.20", item: "L'opinione di Confindustria Dispositivi Medici - A. Deni" },
+                            { time: "10.30", item: "L'opinione della Federazione degli Economi e Provveditori della Sanità (FARE) - A. Leli" },
+                            { time: "10.40", item: "L'opinione dell'Associazione Pazienti FINCOPP - F. Diomede" },
+                            { time: "10.50", item: "L'opinione della SIUD - A. Giammò" }
+                        ]
+                    },
+                    {
+                        id: "ecografia-siut",
+                        time: "11.00-12.00",
+                        title: "Sessione in collaborazione con Scuola di Ecografia – SIUT – SIEUN - Imaging e AI in urologia funzionale",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: "ECM 1",
+                        moderators: "Moderatori: C. De Nunzio, M. Del Zingaro, G. Santoro",
+                        program: [
+                            { time: "11.00", item: "Introduzione - G. Santoro" },
+                            { time: "11.10", item: "Imaging portabile e territorio - S. Chierchia" },
+                            { time: "11.20", item: "BPH - A. Tubaro" },
+                            { time: "11.30", item: "Prolasso - A. Sturiale" },
+                            { time: "11.40", item: "Vescica Neurologica - T. Robba" },
+                            { time: "11.50", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "passaggio-testimone",
+                        time: "14.10",
+                        title: "Passaggio del Testimone ed invito a SIUD 2026",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: false,
+                        moderators: "",
+                        program: []
+                    },
+                    {
+                        id: "quiz-ecm",
+                        time: "14.30",
+                        title: "Quiz ECM online e chiusura del Congresso",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: false,
+                        moderators: "",
+                        program: []
+                    },
+                    {
+                        id: "abstract-fio-dolore",
+                        time: "14.15-15.00",
+                        title: "Sessione Abstract FIO - Dolore Neurourologia e Pavimento Pelvico",
+                        room: "nettuno",
+                        type: "abstract",
+                        ecm: false,
+                        moderators: "Moderatori: C. Bellenghi, A. Bortolami, O. Risi, S. Scarfi",
+                        program: []
+                    },
+                    {
+                        id: "siams-sigg",
+                        time: "14.15-15.00",
+                        title: "Sessione SIAMS-SIGG: Invecchiamento attivo, disfunzioni metaboliche e LUTS",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: "ECM 1",
+                        moderators: "Moderatori: D. Leosco, V. Li Marzi, L. Vignozzi",
+                        program: [
+                            { time: "14.15", item: "Nell'uomo - V. Li Marzi" },
+                            { time: "14.22", item: "Nella donna - M. Marturano" },
+                            { time: "14.29", item: "Incontinenza urinaria: il ruolo del geriatra - A. Ungar" },
+                            { time: "14.39", item: "Malattie metaboliche e OAB - L. Vignozzi" },
+                            { time: "14.49", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "abstract-neurourologia",
+                        time: "14.15-15.00",
+                        title: "Sessione Abstract 1 - Neurourologia",
+                        room: "napoleon",
+                        type: "abstract",
+                        ecm: false,
+                        moderators: "Moderatori: A. Herms, M. Lamartina",
+                        program: []
+                    },
+                    {
+                        id: "sessioni-sponsor-1",
+                        time: "15.00-16.45",
+                        title: "Sessioni Sponsorizzate",
+                        room: "auditorium",
+                        type: "sponsor",
+                        ecm: false,
+                        moderators: "",
+                        program: [
+                            { time: "15.00-15.40", item: "Simposio Convatec - Il Microtrauma Uretrale" },
+                            { time: "15.40-16.20", item: "Simposio Coloplast - Innovazione: Chirurgia della Continenza" },
+                            { time: "16.20-16.45", item: "Lettura Idipharma - IPB e medicina complementare" }
+                        ]
+                    },
+                    {
+                        id: "risultati-funzionali",
+                        time: "16.45-17.30",
+                        title: "Risultati funzionali dei trattamenti chirurgici versus radioterapici in area pelvica",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: false,
+                        moderators: "Moderatori: R. Bertolo, R. Schiavina",
+                        program: [
+                            { time: "16.45", item: "Nell'uomo - A. Briganti" },
+                            { time: "16.55", item: "Nella donna - A. Ercoli" },
+                            { time: "17.05", item: "... e la Radioterapia? - A. Venturi" },
+                            { time: "17.15", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "siud-simg",
+                        time: "16.45-17.30",
+                        title: "Sessione SIUD + SIMG - Alimentazione, stili di vita e disturbi minzionali",
+                        room: "napoleon",
+                        type: "sessione",
+                        ecm: false,
+                        moderators: "Moderatori: C. Cricelli, A. Giammò",
+                        program: [
+                            { time: "16.45", item: "Sulle cistiti ricorrenti - M. Cupardo" },
+                            { time: "16.53", item: "Su LUTS-BPH - M. Creta" },
+                            { time: "17.01", item: "Sull'incontinenza urinaria - F. Savoca" },
+                            { time: "17.09", item: "Sul dolore pelvico cronico - M. Mancini" },
+                            { time: "17.17", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "migliori-abstract",
+                        time: "16.45-17.30",
+                        title: "Migliori Abstract Specialisti in Formazione",
+                        room: "nettuno",
+                        type: "abstract",
+                        ecm: false,
+                        moderators: "Moderatori: M.A. Cerruto, L. Savelli, L. Vacca",
+                        program: []
+                    },
+                    {
+                        id: "lettura-siu",
+                        time: "17.30-17.40",
+                        title: "Lettura SIU (Société Internationale d'Urologie)",
+                        room: "auditorium",
+                        type: "lettura",
+                        moderators: "Introduce: C. De Nunzio",
+                        program: [
+                            { time: "", item: "App and Artificial Intelligence in LUTS BPH managements - S. Gravas" }
+                        ]
+                    },
+                    {
+                        id: "siud-eau-esfu",
+                        time: "17.40-18.30",
+                        title: "Sessione SIUD-EAU-ESFU",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: false,
+                        moderators: "Moderatori: E. Costantini, C. De Nunzio, B. Rocco, J. N. Cornu",
+                        program: [
+                            { time: "17.40", item: "Prostate surgery and Urodynamics: Upstream Trial... an update - M. Drake" },
+                            { time: "17.50", item: "Can we predict and manage persistent LUTS after BOO surgery - T. Tarcan" },
+                            { time: "18.00", item: "In males - E. Finazzi Agrò" },
+                            { time: "18.08", item: "In females - G. Campagna" },
+                            { time: "18.16", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "siud-aiug",
+                        time: "18.30-19.30",
+                        title: "SIUD-AIUG Controversie nel trattamento del prolasso apicale",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: false,
+                        moderators: "Moderatori: M. Balzarro, M. Cervigni, E. Russo",
+                        program: [
+                            { time: "18.30", item: "Urodinamica nel POP: ha ancora un ruolo? - E. Finazzi Agrò" },
+                            { time: "18.40", item: "Sacrocolpopessi versus sospensione laterale - E. Costantini" },
+                            { time: "18.50", item: "Sacrospinoso versus Sospensione Uterosacrale - G. Bracco" },
+                            { time: "19.00", item: "V-notes nel difetto apicale - T. Simoncini" },
+                            { time: "19.10", item: "Cistocele associato a deficit del compartimento apicale - M. Frigerio" },
+                            { time: "19.20", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "abstract-luts-2",
+                        time: "18.30-19.30",
+                        title: "Sessione Abstract 2 - LUTS",
+                        room: "napoleon",
+                        type: "abstract",
+                        ecm: false,
+                        moderatori: "Moderatori: S. Anastasio, A. Di Girolamo, A. Giannantoni",
+                        program: []
+                    },
+                    {
+                        id: "attivita-sportiva",
+                        time: "18.30-19.30",
+                        title: "Attività sportiva e salute pelvica",
+                        room: "nettuno",
+                        type: "sessione",
+                        ecm: "FIO - ECM 2",
+                        moderators: "Moderatori: G. Carbonara, D. Giraudo, A. Mollo, D. Pistolesi",
+                        program: [
+                            { time: "18.30", item: "L'influenza dell'attività sportiva sul pavimento pelvico - S. Giagio" },
+                            { time: "18.45", item: "Sport e pavimento pelvico in gravidanza - I. Baini" },
+                            { time: "18.55", item: "Return to run after pregnancy - E. Bassini" },
+                            { time: "19.05", item: "Wheelchair sport come strumento di riabilitazione - G. Farì" },
+                            { time: "19.15", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "serata-siud",
+                        time: "21.00",
+                        title: "Serata SIUD",
+                        room: "esterno",
+                        type: "evento",
+                        ecm: false,
+                        moderators: "Serra 'La bastia' - Via la Bastia, 2, Bologna",
+                        program: []
+                    }
+                ]
+            },
+            {
+                date: "2025-06-27",
+                dayName: "Venerdì 27 Giugno",
+                sessions: [
+                    {
+                        id: "workshop-addiction-27",
+                        time: "08.00-10.00",
+                        title: "WORKSHOP A - Addictive lifestyle and pelvic floor dysfunction",
+                        room: "napoleon",
+                        type: "workshop",
+                        moderators: "Coordinatori: V. Mancini, S. Musco - Moderatori: G. Lamberti, F. Savoca, M. Spinelli",
+                        program: [
+                            { time: "08.00", item: "Alimentazione e microbiota intestinale - G. Bazzocchi" },
+                            { time: "08.15", item: "Sedentarietà - E. Bertolucci" },
+                            { time: "08.30", item: "Alcol - S. Musco" },
+                            { time: "08.45", item: "Fumo - E. Fragalà" },
+                            { time: "09.00", item: "Gaming - G. Mosiello" },
+                            { time: "09.15", item: "Ipersessualità - G. Sampogna" },
+                            { time: "09.30", item: "Sostanze stupefacenti - M.L. Gallo" },
+                            { time: "09.45", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "workshop-incontinenza-27",
+                        time: "08.00-10.00",
+                        title: "WORKSHOP B - Incontinenza urinaria femminile: punti essenziali in una nuova era",
+                        room: "auditorium",
+                        type: "workshop",
+                        moderators: "Coordinatori: M. Balzarro, V. Li Marzi - Moderatori: A. Biroli, G. Campagna, M. Soligo",
+                        program: [
+                            { time: "08.00", item: "Anatomia chirurgica e funzionale del pavimento pelvico femminile - G. Campagna" },
+                            { time: "08.12", item: "11 sfumature di incontinenza urinaria femminile - L. Vacca" },
+                            { time: "08.24", item: "Urodinamica non invasiva ed invasiva nell'incontinenza urinaria - E. Rubilotta" },
+                            { time: "08.36", item: "Incontinenza urinaria da urgenza: da dove partire... - L. Pelizzari" },
+                            { time: "08.48", item: "... e dove arrivare - E. Russo" },
+                            { time: "09.00", item: "Incontinenza urinaria da sforzo: da dove partire... - L. De Palma" },
+                            { time: "09.12", item: "...dove arrivare - M. Balzarro" },
+                            { time: "09.24", item: "LUTS e prolasso organi pelvici - M. Serati" },
+                            { time: "09.36", item: "Complicanze dei trattamenti per incontinenza urinaria - E. Illiano" },
+                            { time: "09.48", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "workshop-mist-27",
+                        time: "08.00-10.00",
+                        title: "WORKSHOP C - Trattamenti mini invasivi per BPO (MIST)",
+                        room: "nettuno",
+                        type: "workshop",
+                        moderators: "Coordinatori: C. De Nunzio, F. Fusco - Moderatori: P. Ditonno, A. Pastore, S. Serni",
+                        program: [
+                            { time: "08.00", item: "Dalla TURP alle MIST: 40 anni di evoluzioni tecnologiche - A. Cicione" },
+                            { time: "08.15", item: "Quale MIST per quale prostata - C. De Nunzio" },
+                            { time: "08.30", item: "Quale MIST per quale paziente - P. Spatafora" },
+                            { time: "08.45", item: "Come definire l'outcome dopo MIST - C. Manfredi" },
+                            { time: "09.00", item: "Complicanze delle MIST - S. De Cillis" },
+                            { time: "09.15", item: "Quando le MIST falliscono - M. Gacci" },
+                            { time: "09.30", item: "Clinical case - A. Franco" },
+                            { time: "09.45", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "lettura-eau-27",
+                        time: "10.00",
+                        title: "Lettura EAU",
+                        room: "auditorium",
+                        type: "lettura",
+                        moderators: "Introduce: A. Giammò",
+                        program: [
+                            { time: "", item: "The central role of benign prostatic obstruction (BPO) in the management of male LUTS: a multidimensional issue - J. N. Cornu" }
+                        ]
+                    },
+                    {
+                        id: "lettura-sinug-27",
+                        time: "10.30",
+                        title: "Lettura SINUG",
+                        room: "auditorium",
+                        type: "lettura",
+                        moderators: "Introduce: S. Musco",
+                        program: [
+                            { time: "", item: "How to manage chronic urinary retention in females? - S. Arlandis" }
+                        ]
+                    },
+                    {
+                        id: "lettura-tcs-27",
+                        time: "10.50",
+                        title: "Lettura Turkish Continence Society (TCS)",
+                        room: "auditorium",
+                        type: "lettura",
+                        moderators: "Introduce: F. Savoca",
+                        program: [
+                            { time: "", item: "How to manage chronic urinary retention in males? - A. Ergen" }
+                        ]
+                    },
+                    {
+                        id: "oab-goodbye-27",
+                        time: "11.10",
+                        title: "OAB: Goodbye Urodynamics",
+                        room: "auditorium",
+                        type: "sessione",
+                        moderators: "Moderatore: E. Finazzi Agrò - Discussants: M. Drake, A. Tubaro",
+                        program: [
+                            { time: "", item: "Report on Future trial - Y. Al Salhi" }
+                        ]
+                    },
+                    {
+                        id: "chirurgia-robotica",
+                        time: "11.30-12.30",
+                        title: "VIDEO TALK - Chirurgia Robotica Funzionale e ricostruttiva del basso tratto urinario",
+                        room: "auditorium",
+                        type: "sessione",
+                        ecm: "ECM 1",
+                        moderators: "Coordinatore: R. Schiavina - Moderatori: A. Briganti, A. Carbone, R. Gunelli, B. Rocco",
+                        program: [
+                            { time: "11.30", item: "Plastica y-v nella sclerosi del collo - A. Antonelli" },
+                            { time: "11.38", item: "Risultati funzionali della neovescica ortotopica - P. Gontero" },
+                            { time: "11.46", item: "Chirurgia robotica nel trattamento delle fistole - E. Brunocilla" },
+                            { time: "11.52", item: "Prostatectomia semplice robotica - M. Gacci" },
+                            { time: "12.00", item: "L'approccio robotico nelle stenosi - C. Fiori" },
+                            { time: "12.20", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "luts-neurodegenerative",
+                        time: "11.30-12.30",
+                        title: "LUTS nelle malattie neurodegenerative",
+                        room: "napoleon",
+                        type: "sessione",
+                        ecm: false,
+                        moderators: "Moderatori: P. Cortelli, C. Leone, S. Musco",
+                        program: [
+                            { time: "11.30", item: "Sinucleinopatie: Classificazione - G. Calandra Buonaura" },
+                            { time: "11.45", item: "Fenotipi neurodegenerativi - G. Sampogna" },
+                            { time: "11.55", item: "Terapia farmacologica o approccio multimodale? - A. Manassero" },
+                            { time: "12.05", item: "Neuromodulazione: effetti sintomatici - G. Pelliccioni" },
+                            { time: "12.20", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "ecografia-fio",
+                        time: "11.30-12.30",
+                        title: "Sessione FIO Ecografia diagnostica e riabilitativa nella gestione delle disfunzioni pelvi-perineali",
+                        room: "nettuno",
+                        type: "sessione",
+                        ecm: "ECM 2",
+                        moderators: "Moderatori: F. Cecconi, G. De Rienzo, C. Gruosso",
+                        program: [
+                            { time: "11.30", item: "Ecografia diagnostica e riabilitativa del pavimento pelvico femminile - L. Cito" },
+                            { time: "11.45", item: "L'indagine ecografica nell'uomo - M. Spilotros" },
+                            { time: "12.00", item: "L'ecografia come strumento integrativo - G. Frasca" },
+                            { time: "12.10", item: "Biofeedback elettromiografico o ecografico? - M. Lisa" },
+                            { time: "12.20", item: "Discussione" }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        let favorites = JSON.parse(localStorage.getItem('siud-favorites') || '[]');
+        let currentFilters = {
+            day: 'all',
+            room: 'all',
+            type: 'all',
+            search: '',
+            showOnlyFavorites: false
+        };
+
+        function initApp() {
+            renderProgram();
+            setupEventListeners();
+            updateFavoriteButton();
+        }
+
+        function setupEventListeners() {
+            // Filtri giorni
+            document.getElementById('dayFilters').addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-btn')) {
+                    updateActiveFilter('dayFilters', e.target);
+                    currentFilters.day = e.target.dataset.day;
+                    renderProgram();
+                }
+            });
+
+            // Filtri sale
+            document.getElementById('roomFilters').addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-btn')) {
+                    updateActiveFilter('roomFilters', e.target);
+                    currentFilters.room = e.target.dataset.room;
+                    renderProgram();
+                }
+            });
+
+            // Filtri tipologia
+            document.getElementById('typeFilters').addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-btn')) {
+                    updateActiveFilter('typeFilters', e.target);
+                    currentFilters.type = e.target.dataset.type;
+                    renderProgram();
+                }
+            });
+
+            // Ricerca
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                currentFilters.search = e.target.value.toLowerCase();
+                renderProgram();
+            });
+
+            // Toggle programma personale
+            document.getElementById('personalToggle').addEventListener('click', () => {
+                currentFilters.showOnlyFavorites = !currentFilters.showOnlyFavorites;
+                updateFavoriteButton();
+                renderProgram();
+            });
+
+            // Export
+            document.getElementById('exportBtn').addEventListener('click', exportPersonalProgram);
+        }
+
+        function updateActiveFilter(containerId, activeBtn) {
+            const container = document.getElementById(containerId);
+            container.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            activeBtn.classList.add('active');
+        }
+
+        function updateFavoriteButton() {
+            const btn = document.getElementById('personalToggle');
+            const exportBtn = document.getElementById('exportBtn');
+            
+            if (currentFilters.showOnlyFavorites) {
+                btn.innerHTML = '📋';
+                btn.style.background = '#ff6b6b';
+                exportBtn.classList.remove('hidden');
+            } else {
+                btn.innerHTML = '⭐';
+                btn.style.background = '#8B1538';
+                exportBtn.classList.add('hidden');
+            }
+        }
+
+        function renderProgram() {
+            const container = document.getElementById('programContent');
+            container.innerHTML = '';
+
+            const filteredData = filterProgram();
+            
+            if (filteredData.length === 0 || filteredData.every(day => day.sessions.length === 0)) {
+                container.innerHTML = '<div class="no-results">Nessun risultato trovato per i filtri selezionati.</div>';
+                return;
+            }
+
+            filteredData.forEach(day => {
+                if (day.sessions.length === 0) return;
+
+                const daySection = document.createElement('div');
+                daySection.className = 'day-section';
+                daySection.innerHTML = `
+                    <div class="day-header">
+                        <h2>${day.dayName}</h2>
+                        <div class="date">${formatDate(day.date)}</div>
+                    </div>
+                `;
+
+                day.sessions.forEach(session => {
+                    const sessionCard = createSessionCard(session);
+                    daySection.appendChild(sessionCard);
+                });
+
+                container.appendChild(daySection);
+            });
+        }
+
+        function filterProgram() {
+            return programData.map(day => {
+                if (currentFilters.day !== 'all' && day.date !== currentFilters.day) {
+                    return { ...day, sessions: [] };
+                }
+
+                const filteredSessions = day.sessions.filter(session => {
+                    // Filtro sala
+                    if (currentFilters.room !== 'all' && session.room !== currentFilters.room) {
+                        return false;
+                    }
+
+                    // Filtro tipologia
+                    if (currentFilters.type !== 'all' && session.type !== currentFilters.type) {
+                        return false;
+                    }
+
+                    // Filtro preferiti
+                    if (currentFilters.showOnlyFavorites && !favorites.includes(session.id)) {
+                        return false;
+                    }
+
+                    // Filtro ricerca
+                    if (currentFilters.search) {
+                        const searchText = currentFilters.search;
+                        const sessionText = `${session.title} ${session.moderators} ${session.program.map(p => p.item).join(' ')}`.toLowerCase();
+                        if (!sessionText.includes(searchText)) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                });
+
+                return { ...day, sessions: filteredSessions };
+            });
+        }
+
+        function createSessionCard(session) {
+            const card = document.createElement('div');
+            card.className = 'session-card';
+            card.style.position = 'relative';
+
+            const isFavorite = favorites.includes(session.id);
+            
+            let ecmBadge = '';
+            if (session.ecm) {
+                ecmBadge = `<span class="session-ecm">${session.ecm}</span>`;
+            }
+
+            let programHTML = '';
+            if (session.program && session.program.length > 0) {
+                programHTML = `
+                    <ul class="session-program">
+                        ${session.program.map(item => `
+                            <li>
+                                <span class="program-time">${item.time}</span>
+                                <span class="program-item">${item.item}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+            }
+
+            card.innerHTML = `
+                <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-session-id="${session.id}">
+                    ${isFavorite ? '❤️' : '🤍'}
+                </button>
+                <div class="session-header">
+                    <div class="session-time">${session.time}</div>
+                    <div class="session-title">${session.title}</div>
+                    <div class="session-info">
+                        <span class="session-room">${getRoomName(session.room)}</span>
+                        <span class="session-type">${getTypeName(session.type)}</span>
+                        ${ecmBadge}
+                    </div>
+                    ${session.moderators ? `
+                        <div class="session-moderators">
+                            <strong>Moderatori:</strong> ${session.moderators}
+                        </div>
+                    ` : ''}
+                </div>
+                ${programHTML ? `<div class="session-content">${programHTML}</div>` : ''}
+            `;
+
+            // Aggiungi event listener per il pulsante favorite
+            const favoriteBtn = card.querySelector('.favorite-btn');
+            favoriteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleFavorite(session.id);
+            });
+
+            return card;
+        }
+
+        function toggleFavorite(sessionId) {
+            const index = favorites.indexOf(sessionId);
+            if (index === -1) {
+                favorites.push(sessionId);
+            } else {
+                favorites.splice(index, 1);
+            }
+            
+            localStorage.setItem('siud-favorites', JSON.stringify(favorites));
+            renderProgram();
+        }
+
+        function getRoomName(room) {
+            const rooms = {
+                'auditorium': 'Auditorium',
+                'napoleon': 'Sala Napoleon',
+                'nettuno': 'Sala Nettuno'
+            };
+            return rooms[room] || room;
+        }
+
+        function getTypeName(type) {
+            const types = {
+                'workshop': 'Workshop',
+                'lettura': 'Lettura',
+                'sessione': 'Sessione',
+                'abstract': 'Abstract',
+                'sponsor': 'Sponsorizzata',
+                'registrazione': 'Registrazione'
+            };
+            return types[type] || type;
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            return date.toLocaleDateString('it-IT', options);
+        }
+
+        function exportPersonalProgram() {
+            const favoriteSessions = [];
+            
+            programData.forEach(day => {
+                day.sessions.forEach(session => {
+                    if (favorites.includes(session.id)) {
+                        favoriteSessions.push({
+                            day: day.dayName,
+                            ...session
+                        });
+                    }
+                });
+            });
+
+            if (favoriteSessions.length === 0) {
+                alert('Non hai selezionato nessuna sessione per il tuo programma personale.');
+                return;
+            }
+
+            // Crea contenuto testuale
+            let content = 'SIUD 2025 - Il Mio Programma Personale\n';
+            content += '49° Congresso Nazionale SIUD\n';
+            content += '23° Congresso SIUD Fisioterapisti, Infermieri, Ostetriche\n';
+            content += 'Bologna, 26-28 Giugno 2025 • Hotel Savoia Regency\n\n';
+            content += '=' + '='.repeat(50) + '\n\n';
+
+            let currentDay = '';
+            favoriteSessions.forEach(session => {
+                if (session.day !== currentDay) {
+                    currentDay = session.day;
+                    content += `\n${currentDay}\n`;
+                    content += '-'.repeat(currentDay.length) + '\n';
+                }
+                
+                content += `\n⏰ ${session.time}\n`;
+                content += `📍 ${getRoomName(session.room)}\n`;
+                content += `📋 ${session.title}\n`;
+                
+                if (session.moderators) {
+                    content += `👥 ${session.moderators}\n`;
+                }
+                
+                if (session.program && session.program.length > 0) {
+                    content += '\nProgramma:\n';
+                    session.program.forEach(item => {
+                        content += `  ${item.time} - ${item.item}\n`;
+                    });
+                }
+                
+                content += '\n' + '-'.repeat(40) + '\n';
+            });
+
+            content += '\n\nGenerato da SIUD 2025 App\n';
+            content += new Date().toLocaleString('it-IT');
+
+            // Download come file di testo
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'SIUD2025_MioProgramma.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Inizializza l'app
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
+                
