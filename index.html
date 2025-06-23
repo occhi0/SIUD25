@@ -177,7 +177,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             overflow: hidden;
             border-left: 4px solid #8B1538;
-            position: relative;
         }
 
         .session-header {
@@ -269,56 +268,6 @@
             line-height: 1.4;
         }
 
-        .favorite-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #ccc;
-            transition: color 0.3s ease;
-        }
-
-        .favorite-btn.active {
-            color: #ff6b6b;
-        }
-
-        .personal-program-toggle {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1rem;
-            background: #8B1538;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 55px;
-            height: 55px;
-            font-size: 1.3rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(139, 21, 56, 0.4);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .personal-program-toggle:active {
-            transform: scale(0.95);
-        }
-
-        .export-btn {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            margin: 0.75rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            width: calc(100% - 1.5rem);
-        }
-
         .no-results {
             text-align: center;
             padding: 2rem;
@@ -397,9 +346,6 @@
         <main class="content" id="programContent">
             <!-- Il contenuto verrà generato dinamicamente -->
         </main>
-
-        <button class="export-btn hidden" id="exportBtn">📥 Esporta Programma Personale</button>
-        <button class="personal-program-toggle" id="personalToggle" title="Visualizza programma personale">⭐</button>
     </div>
 
     <script>
@@ -587,14 +533,12 @@
             }
         ];
 
-        let favorites = JSON.parse(localStorage.getItem('siud-favorites') || '[]');
         let currentFilters = {
             day: 'all',
             room: 'all',
             type: 'all',
             timeSlot: 'all',
-            search: '',
-            showOnlyFavorites: false
+            search: ''
         };
 
         function initApp() {
@@ -602,7 +546,6 @@
             populateTimeSlots();
             renderProgram();
             setupEventListeners();
-            updateFavoriteButton();
         }
 
         function populateTimeSlots() {
@@ -655,14 +598,6 @@
                 currentFilters.search = e.target.value.toLowerCase();
                 renderProgram();
             });
-
-            document.getElementById('personalToggle').addEventListener('click', () => {
-                currentFilters.showOnlyFavorites = !currentFilters.showOnlyFavorites;
-                updateFavoriteButton();
-                renderProgram();
-            });
-
-            document.getElementById('exportBtn').addEventListener('click', exportPersonalProgram);
         }
 
         function updateTimeSlotOptions() {
@@ -700,18 +635,7 @@
         }
 
         function updateFavoriteButton() {
-            const btn = document.getElementById('personalToggle');
-            const exportBtn = document.getElementById('exportBtn');
-            
-            if (currentFilters.showOnlyFavorites) {
-                btn.innerHTML = '📋';
-                btn.style.background = '#ff6b6b';
-                exportBtn.classList.remove('hidden');
-            } else {
-                btn.innerHTML = '⭐';
-                btn.style.background = '#8B1538';
-                exportBtn.classList.add('hidden');
-            }
+            // Funzione rimossa - non più necessaria
         }
 
         function renderProgram() {
@@ -826,10 +750,6 @@
                         return false;
                     }
 
-                    if (currentFilters.showOnlyFavorites && !favorites.includes(session.id)) {
-                        return false;
-                    }
-
                     if (currentFilters.search) {
                         const searchText = currentFilters.search;
                         const sessionText = `${session.title} ${session.moderators} ${session.program.map(p => p.item).join(' ')}`.toLowerCase();
@@ -849,8 +769,6 @@
             const card = document.createElement('div');
             card.className = 'session-card';
 
-            const isFavorite = favorites.includes(session.id);
-            
             let ecmBadge = '';
             if (session.ecm) {
                 ecmBadge = `<span class="session-ecm">${session.ecm}</span>`;
@@ -871,9 +789,6 @@
             }
 
             card.innerHTML = `
-                <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-session-id="${session.id}">
-                    ${isFavorite ? '❤️' : '🤍'}
-                </button>
                 <div class="session-header">
                     <div class="session-time">${session.time}</div>
                     <div class="session-title">${session.title}</div>
@@ -891,25 +806,11 @@
                 ${programHTML ? `<div class="session-content">${programHTML}</div>` : ''}
             `;
 
-            const favoriteBtn = card.querySelector('.favorite-btn');
-            favoriteBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleFavorite(session.id);
-            });
-
             return card;
         }
 
         function toggleFavorite(sessionId) {
-            const index = favorites.indexOf(sessionId);
-            if (index === -1) {
-                favorites.push(sessionId);
-            } else {
-                favorites.splice(index, 1);
-            }
-            
-            localStorage.setItem('siud-favorites', JSON.stringify(favorites));
-            renderProgram();
+            // Funzione rimossa - non più necessaria
         }
 
         function getRoomName(room) {
@@ -942,71 +843,6 @@
                 day: 'numeric' 
             };
             return date.toLocaleDateString('it-IT', options);
-        }
-
-        function exportPersonalProgram() {
-            const favoriteSessions = [];
-            
-            programData.forEach(day => {
-                day.sessions.forEach(session => {
-                    if (favorites.includes(session.id)) {
-                        favoriteSessions.push({
-                            day: day.dayName,
-                            ...session
-                        });
-                    }
-                });
-            });
-
-            if (favoriteSessions.length === 0) {
-                alert('Non hai selezionato nessuna sessione per il tuo programma personale.');
-                return;
-            }
-
-            let content = 'SIUD 2025 - Il Mio Programma Personale\n';
-            content += '49° Congresso Nazionale SIUD\n';
-            content += '23° Congresso SIUD Fisioterapisti, Infermieri, Ostetriche\n';
-            content += 'Bologna, 26-28 Giugno 2025 • Hotel Savoia Regency\n\n';
-            content += '=' + '='.repeat(50) + '\n\n';
-
-            let currentDay = '';
-            favoriteSessions.forEach(session => {
-                if (session.day !== currentDay) {
-                    currentDay = session.day;
-                    content += `\n${currentDay}\n`;
-                    content += '-'.repeat(currentDay.length) + '\n';
-                }
-                
-                content += `\n⏰ ${session.time}\n`;
-                content += `📍 ${getRoomName(session.room)}\n`;
-                content += `📋 ${session.title}\n`;
-                
-                if (session.moderators) {
-                    content += `👥 ${session.moderators}\n`;
-                }
-                
-                if (session.program && session.program.length > 0) {
-                    content += '\nProgramma:\n';
-                    session.program.forEach(item => {
-                        content += `  ${item.time} - ${item.item}\n`;
-                    });
-                }
-                
-                content += '\n' + '-'.repeat(40) + '\n';
-            });
-
-            content += '\n\nGenerato da SIUD 2025 App\n';
-            content += new Date().toLocaleString('it-IT');
-
-            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'SIUD2025_MioProgramma.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
         }
 
         // Inizializza l'app
