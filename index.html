@@ -52,7 +52,7 @@
             background: #f8f9fa;
             border-bottom: 1px solid #e9ecef;
             position: sticky;
-            top: 80px;
+            top: 80px; /* Adjusted based on header height */
             z-index: 99;
         }
 
@@ -67,7 +67,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0.5rem;
-            margin-bottom: 0.75rem;
+            /* margin-bottom: 0.75rem; */ /* Removed to reduce space after removing search */
         }
 
         .filter-dropdown {
@@ -95,25 +95,6 @@
         .dropdown-select:focus {
             outline: none;
             border-color: #B85450;
-            box-shadow: 0 0 0 3px rgba(139, 21, 56, 0.1);
-        }
-
-        .search-container {
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 0.6rem;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            background: white;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #8B1538;
             box-shadow: 0 0 0 3px rgba(139, 21, 56, 0.1);
         }
 
@@ -337,10 +318,6 @@
                     </select>
                 </div>
             </div>
-
-            <div class="search-container">
-                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Cerca relatori, moderatori o argomenti...">
-            </div>
         </div>
 
         <main class="content" id="programContent">
@@ -349,7 +326,7 @@
     </div>
 
     <script>
-        // Dati del programma (versione semplificata per test)
+        // --- INIZIO DATI PROGRAMMA ---
         const programData = [
             {
                 date: "2025-06-26",
@@ -419,6 +396,87 @@
                         ecm: "FIO - ECM 2",
                         moderators: "Conduce: A. Cicalese",
                         program: []
+                    },
+                    {
+                        id: "pausa-pranzo-26",
+                        time: "13.30-14.30",
+                        title: "Pausa Pranzo",
+                        room: "auditorium",
+                        type: "pausa",
+                        ecm: false,
+                        moderators: "",
+                        program: []
+                    },
+                    {
+                        id: "sponsor-wellspect",
+                        time: "14.30-15.30",
+                        title: "SESSIONE SPONSORIZZATA - Wellsxpect: Innovazione nel cateterismo intermittente",
+                        room: "auditorium",
+                        type: "sponsor",
+                        ecm: false,
+                        moderators: "Introduce: G. Lenti",
+                        program: [
+                            { time: "14.30", item: "Nuove tecnologie e materiali - R. Gallo" },
+                            { time: "14.50", item: "L'importanza dell'educazione al paziente - S. Farina" },
+                            { time: "15.10", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "pavimento-pelvico-26",
+                        time: "14.30-15.30",
+                        title: "Il pavimento pelvico: dalla diagnosi alla riabilitazione",
+                        room: "napoleon",
+                        type: "sessione",
+                        ecm: "ECM 1",
+                        moderators: "Moderatori: E. Costantini, M. T. Filocamo",
+                        program: [
+                            { time: "14.30", item: "Ecografia del pavimento pelvico - D. Lauri" },
+                            { time: "14.45", item: "Riabilitazione post-prostatectomia - F. Cito" },
+                            { time: "15.00", item: "Terapie manuali - L. Ruggiero" },
+                            { time: "15.15", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "coffee-break-26",
+                        time: "15.30-16.00",
+                        title: "Coffee Break",
+                        room: "auditorium",
+                        type: "pausa",
+                        ecm: false,
+                        moderators: "",
+                        program: []
+                    },
+                    {
+                        id: "abstract-top-26",
+                        time: "16.00-17.30",
+                        title: "ABSTRACT - Le migliori comunicazioni orali",
+                        room: "auditorium",
+                        type: "abstract",
+                        ecm: "ECM 1",
+                        moderators: "Moderatori: M. P. Tondo, V. Vagnoni",
+                        program: [
+                            { time: "16.00", item: "Presentazione 1 - Vincitore Abstract" },
+                            { time: "16.15", item: "Presentazione 2 - Vincitore Abstract" },
+                            { time: "16.30", item: "Presentazione 3 - Vincitore Abstract" },
+                            { time: "16.45", item: "Presentazione 4 - Vincitore Abstract" },
+                            { time: "17.00", item: "Presentazione 5 - Vincitore Abstract" },
+                            { time: "17.15", item: "Discussione finale" }
+                        ]
+                    },
+                    {
+                        id: "fio-cateterismo-26",
+                        time: "16.00-17.30",
+                        title: "SESSIONE F.I.O. - La gestione del cateterismo vescicale",
+                        room: "nettuno",
+                        type: "sessione",
+                        ecm: "FIO - ECM 2",
+                        moderators: "Moderatori: E. Lamanna, A. Mazzini",
+                        program: [
+                            { time: "16.00", item: "Cateterismo a lungo termine: quale gestione? - C. Crivellaro" },
+                            { time: "16.20", item: "Prevenzione delle infezioni - M. Bacchiani" },
+                            { time: "16.40", item: "Il ruolo dell'infermiere specialista - A. Cicalese" },
+                            { time: "17.00", item: "Discussione e casi pratici" }
+                        ]
                     }
                 ]
             },
@@ -532,17 +590,16 @@
                 ]
             }
         ];
+        // --- FINE DATI PROGRAMMA ---
 
         let currentFilters = {
             day: 'all',
             room: 'all',
             type: 'all',
-            timeSlot: 'all',
-            search: ''
+            timeSlot: 'all'
         };
 
         function initApp() {
-            console.log('App inizializzata');
             populateTimeSlots();
             renderProgram();
             setupEventListeners();
@@ -557,7 +614,7 @@
                 });
             });
 
-            const sortedTimeSlots = Array.from(timeSlots).sort();
+            const sortedTimeSlots = Array.from(timeSlots).sort((a, b) => a.localeCompare(b, undefined, {numeric: true}));
             const timeSlotSelect = document.getElementById('timeSlotFilter');
             
             timeSlotSelect.innerHTML = '<option value="all">Tutte le fasce orarie</option>';
@@ -571,8 +628,6 @@
         }
 
         function setupEventListeners() {
-            console.log('Configurazione event listeners');
-            
             document.getElementById('dayFilter').addEventListener('change', (e) => {
                 currentFilters.day = e.target.value;
                 updateTimeSlotOptions();
@@ -593,11 +648,6 @@
                 currentFilters.timeSlot = e.target.value;
                 renderProgram();
             });
-
-            document.getElementById('searchInput').addEventListener('input', (e) => {
-                currentFilters.search = e.target.value.toLowerCase();
-                renderProgram();
-            });
         }
 
         function updateTimeSlotOptions() {
@@ -613,7 +663,7 @@
                 });
             });
 
-            const sortedTimeSlots = Array.from(timeSlots).sort();
+            const sortedTimeSlots = Array.from(timeSlots).sort((a, b) => a.localeCompare(b, undefined, {numeric: true}));
             const timeSlotSelect = document.getElementById('timeSlotFilter');
             const currentValue = timeSlotSelect.value;
             
@@ -634,12 +684,7 @@
             }
         }
 
-        function updateFavoriteButton() {
-            // Funzione rimossa - non più necessaria
-        }
-
         function renderProgram() {
-            console.log('Rendering programma');
             const container = document.getElementById('programContent');
             container.innerHTML = '';
 
@@ -669,8 +714,10 @@
                         <div class="date">${formatDate(day.date)}</div>
                     </div>
                 `;
+                
+                const sortedSessions = day.sessions.sort((a, b) => a.time.localeCompare(b.time, undefined, {numeric: true}));
 
-                day.sessions.forEach(session => {
+                sortedSessions.forEach(session => {
                     const sessionCard = createSessionCard(session);
                     daySection.appendChild(sessionCard);
                 });
@@ -694,7 +741,7 @@
                 });
             });
 
-            const sortedTimeSlots = Object.keys(sessionsByTimeSlot).sort();
+            const sortedTimeSlots = Object.keys(sessionsByTimeSlot).sort((a, b) => a.localeCompare(b, undefined, {numeric: true}));
 
             sortedTimeSlots.forEach(timeSlot => {
                 const sessions = sessionsByTimeSlot[timeSlot];
@@ -718,7 +765,7 @@
                     if (currentFilters.day === 'all') {
                         const dayBadge = document.createElement('span');
                         dayBadge.className = 'session-type';
-                        dayBadge.textContent = session.dayName.split(' ')[1];
+                        dayBadge.textContent = session.dayName.split(' ')[0].substring(0,3);
                         dayBadge.style.background = '#6c757d';
                         dayBadge.style.color = 'white';
                         sessionCard.querySelector('.session-info').appendChild(dayBadge);
@@ -750,14 +797,6 @@
                         return false;
                     }
 
-                    if (currentFilters.search) {
-                        const searchText = currentFilters.search;
-                        const sessionText = `${session.title} ${session.moderators} ${session.program.map(p => p.item).join(' ')}`.toLowerCase();
-                        if (!sessionText.includes(searchText)) {
-                            return false;
-                        }
-                    }
-
                     return true;
                 });
 
@@ -787,6 +826,17 @@
                     </ul>
                 `;
             }
+            
+            let moderatorsHTML = '';
+            if (session.moderators) {
+                if (session.moderators.includes(':')) {
+                    const parts = session.moderators.split(':');
+                    moderatorsHTML = `<div class="session-moderators"><strong>${parts[0]}:</strong> ${parts[1]}</div>`;
+                } else {
+                    moderatorsHTML = `<div class="session-moderators">${session.moderators}</div>`;
+                }
+            }
+
 
             card.innerHTML = `
                 <div class="session-header">
@@ -797,20 +847,12 @@
                         <span class="session-type">${getTypeName(session.type)}</span>
                         ${ecmBadge}
                     </div>
-                    ${session.moderators ? `
-                        <div class="session-moderators">
-                            <strong>Moderatori:</strong> ${session.moderators}
-                        </div>
-                    ` : ''}
+                    ${moderatorsHTML}
                 </div>
                 ${programHTML ? `<div class="session-content">${programHTML}</div>` : ''}
             `;
 
             return card;
-        }
-
-        function toggleFavorite(sessionId) {
-            // Funzione rimossa - non più necessaria
         }
 
         function getRoomName(room) {
@@ -829,13 +871,15 @@
                 'sessione': 'Sessione',
                 'abstract': 'Abstract',
                 'sponsor': 'Sponsorizzata',
-                'registrazione': 'Registrazione'
+                'registrazione': 'Registrazione',
+                'pausa': 'Pausa'
             };
             return types[type] || type;
         }
 
         function formatDate(dateStr) {
             const date = new Date(dateStr);
+            date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
             const options = { 
                 weekday: 'long', 
                 year: 'numeric', 
