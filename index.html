@@ -327,6 +327,7 @@
 
     <script>
         // --- INIZIO DATI PROGRAMMA ---
+// Dati del programma completo SIUD 2025
         const programData = [
             {
                 date: "2025-06-26",
@@ -352,7 +353,11 @@
                             { time: "10.00", item: "RU nell'uomo - O. Saleh" },
                             { time: "10.10", item: "RU nella donna - M. Bacchiani" },
                             { time: "10.20", item: "RU nel neurologico - E. Fragalà" },
-                            { time: "10.30", item: "Approccio conservativo - L. Amaducci, A. Mazzini" }
+                            { time: "10.30", item: "Approccio conservativo - L. Amaducci, A. Mazzini" },
+                            { time: "10.40", item: "Chirurgia - A. Feruzzi" },
+                            { time: "10.50", item: "Neuromodulazione non invasiva - C. Sedioli" },
+                            { time: "11.05", item: "Neuromodulazione invasiva - F. Cappellano" },
+                            { time: "11.20", item: "Discussione" }
                         ]
                     },
                     {
@@ -398,84 +403,163 @@
                         program: []
                     },
                     {
-                        id: "pausa-pranzo-26",
-                        time: "13.30-14.30",
-                        title: "Pausa Pranzo",
+                        id: "spazio-ics",
+                        time: "13.30-14.15",
+                        title: "Spazio ICS",
                         room: "auditorium",
-                        type: "pausa",
-                        ecm: false,
-                        moderators: "",
-                        program: []
-                    },
-                    {
-                        id: "sponsor-wellspect",
-                        time: "14.30-15.30",
-                        title: "SESSIONE SPONSORIZZATA - Wellsxpect: Innovazione nel cateterismo intermittente",
-                        room: "auditorium",
-                        type: "sponsor",
-                        ecm: false,
-                        moderators: "Introduce: G. Lenti",
+                        type: "sessione",
+                        moderators: "Introduce: C. De Nunzio",
                         program: [
-                            { time: "14.30", item: "Nuove tecnologie e materiali - R. Gallo" },
-                            { time: "14.50", item: "L'importanza dell'educazione al paziente - S. Farina" },
-                            { time: "15.10", item: "Discussione" }
+                            { time: "13.35", item: "Detrusor underactivity - T. Tarcan" },
+                            { time: "13.55", item: "Detrusor overactivity - M. Drake" }
                         ]
                     },
                     {
-                        id: "pavimento-pelvico-26",
-                        time: "14.30-15.30",
-                        title: "Il pavimento pelvico: dalla diagnosi alla riabilitazione",
-                        room: "napoleon",
+                        id: "siams-sigg",
+                        time: "14.15-15.00",
+                        title: "Sessione SIAMS-SIGG: Invecchiamento attivo, disfunzioni metaboliche e LUTS",
+                        room: "auditorium",
                         type: "sessione",
                         ecm: "ECM 1",
-                        moderators: "Moderatori: E. Costantini, M. T. Filocamo",
+                        moderators: "Moderatori: D. Leosco, V. Li Marzi, L. Vignozzi",
                         program: [
-                            { time: "14.30", item: "Ecografia del pavimento pelvico - D. Lauri" },
-                            { time: "14.45", item: "Riabilitazione post-prostatectomia - F. Cito" },
-                            { time: "15.00", item: "Terapie manuali - L. Ruggiero" },
-                            { time: "15.15", item: "Discussione" }
+                            { time: "14.15", item: "Nell'uomo - V. Li Marzi" },
+                            { time: "14.22", item: "Nella donna - M. Marturano" },
+                            { time: "14.29", item: "Incontinenza urinaria: il ruolo del geriatra - A. Ungar" },
+                            { time: "14.39", item: "Malattie metaboliche e OAB - L. Vignozzi" },
+                            { time: "14.49", item: "Discussione" }
                         ]
                     },
                     {
-                        id: "coffee-break-26",
-                        time: "15.30-16.00",
-                        title: "Coffee Break",
+                        id: "abstract-neurourologia",
+                        time: "14.15-15.00",
+                        title: "Sessione Abstract 1 - Neurourologia",
+                        room: "napoleon",
+                        type: "abstract",
+                        moderators: "Moderatori: A. Herms, M. Lamartina",
+                        program: []
+                    },
+                    {
+                        id: "abstract-fio-dolore",
+                        time: "14.15-15.00",
+                        title: "Sessione Abstract FIO - Dolore Neurourologia e Pavimento Pelvico",
+                        room: "nettuno",
+                        type: "abstract",
+                        moderators: "Moderatori: C. Bellenghi, A. Bortolami, O. Risi, S. Scarfi",
+                        program: []
+                    },
+                    {
+                        id: "sponsor-pomeriggio",
+                        time: "15.00-16.45",
+                        title: "Sessioni Sponsorizzate",
                         room: "auditorium",
-                        type: "pausa",
-                        ecm: false,
+                        type: "sponsor",
                         moderators: "",
                         program: []
                     },
                     {
-                        id: "abstract-top-26",
-                        time: "16.00-17.30",
-                        title: "ABSTRACT - Le migliori comunicazioni orali",
+                        id: "risultati-funzionali",
+                        time: "16.45-17.30",
+                        title: "Risultati funzionali dei trattamenti chirurgici versus radioterapici in area pelvica",
                         room: "auditorium",
-                        type: "abstract",
-                        ecm: "ECM 1",
-                        moderators: "Moderatori: M. P. Tondo, V. Vagnoni",
+                        type: "sessione",
+                        moderators: "Moderatori: R. Bertolo, R. Schiavina",
                         program: [
-                            { time: "16.00", item: "Presentazione 1 - Vincitore Abstract" },
-                            { time: "16.15", item: "Presentazione 2 - Vincitore Abstract" },
-                            { time: "16.30", item: "Presentazione 3 - Vincitore Abstract" },
-                            { time: "16.45", item: "Presentazione 4 - Vincitore Abstract" },
-                            { time: "17.00", item: "Presentazione 5 - Vincitore Abstract" },
-                            { time: "17.15", item: "Discussione finale" }
+                            { time: "16.45", item: "Nell'uomo - A. Briganti" },
+                            { time: "16.55", item: "Nella donna - A. Ercoli" },
+                            { time: "17.05", item: "... e la Radioterapia? - A. Venturi" },
+                            { time: "17.15", item: "Discussione" }
                         ]
                     },
                     {
-                        id: "fio-cateterismo-26",
-                        time: "16.00-17.30",
-                        title: "SESSIONE F.I.O. - La gestione del cateterismo vescicale",
+                        id: "siud-simg",
+                        time: "16.45-17.30",
+                        title: "Sessione SIUD + SIMG: Alimentazione, stili di vita e disturbi minzionali",
+                        room: "napoleon",
+                        type: "sessione",
+                        moderatori: "Moderatori: C. Cricelli, A. Giammò",
+                        program: [
+                            { time: "16.45", item: "Sulle cistiti ricorrenti - M. Cupardo" },
+                            { time: "16.53", item: "Su LUTS-BPH - M. Creta" },
+                            { time: "17.01", item: "Sull'incontinenza urinaria - F. Savoca" },
+                            { time: "17.09", item: "Sul dolore pelvico cronico - M. Mancini" },
+                            { time: "17.17", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "abstract-specializzandi",
+                        time: "16.45-17.30",
+                        title: "Migliori Abstract Specialisti in Formazione",
+                        room: "nettuno",
+                        type: "abstract",
+                        moderators: "Moderatori: M.A. Cerruto, L. Savelli, L. Vacca",
+                        program: []
+                    },
+                    {
+                        id: "lettura-siu",
+                        time: "17.30-17.40",
+                        title: "Lettura SIU (Société Internationale d'Urologie)",
+                        room: "auditorium",
+                        type: "lettura",
+                        moderators: "Introduce: C. De Nunzio",
+                        program: [
+                            { time: "", item: "App and Artificial Intelligence in LUTS BPH managements - S. Gravas" }
+                        ]
+                    },
+                    {
+                        id: "siud-eau-esfu",
+                        time: "17.40-18.30",
+                        title: "Sessione SIUD-EAU-ESFU",
+                        room: "auditorium",
+                        type: "sessione",
+                        moderators: "Moderatori: E. Costantini, C. De Nunzio, B. Rocco, J. N. Cornu",
+                        program: [
+                            { time: "17.40", item: "Prostate surgery and Urodynamics: Upstream Trial... an update - M. Drake" },
+                            { time: "17.50", item: "Can we predict and manage persistent LUTS after BOO surgery - T. Tarcan" },
+                            { time: "18.00", item: "In males - E. Finazzi Agrò" },
+                            { time: "18.08", item: "In females - G. Campagna" },
+                            { time: "18.16", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "siud-aiug",
+                        time: "18.30-19.30",
+                        title: "SIUD-AIUG: Controversie nel trattamento del prolasso apicale",
+                        room: "auditorium",
+                        type: "sessione",
+                        moderators: "Moderatori: M. Balzarro, M. Cervigni, E. Russo",
+                        program: [
+                            { time: "18.30", item: "Urodinamica nel POP: ha ancora un ruolo? - E. Finazzi Agrò" },
+                            { time: "18.40", item: "Sacrocolpopessi versus sospensione laterale - E. Costantini" },
+                            { time: "18.50", item: "Sacrospinoso versus Sospensione Uterosacrale - G. Bracco" },
+                            { time: "19.00", item: "V-notes nel difetto apicale - T. Simoncini" },
+                            { time: "19.10", item: "Cistocele associato a deficit del compartimento apicale - M. Frigerio" },
+                            { time: "19.20", item: "Discussione" }
+                        ]
+                    },
+                    {
+                        id: "abstract-luts-26",
+                        time: "18.30-19.30",
+                        title: "Sessione Abstract 2 - LUTS",
+                        room: "napoleon",
+                        type: "abstract",
+                        moderators: "Moderatori: S. Anastasio, A. Di Girolamo, A. Giannantoni",
+                        program: []
+                    },
+                    {
+                        id: "attivita-sportiva",
+                        time: "18.30-19.30",
+                        title: "Attività sportiva e salute pelvica",
                         room: "nettuno",
                         type: "sessione",
                         ecm: "FIO - ECM 2",
-                        moderators: "Moderatori: E. Lamanna, A. Mazzini",
+                        moderators: "Moderatori: G. Carbonara, D. Giraudo, A. Mollo, D. Pistolesi",
                         program: [
-                            { time: "16.00", item: "Cateterismo a lungo termine: quale gestione? - C. Crivellaro" },
-                            { time: "16.20", item: "Prevenzione delle infezioni - M. Bacchiani" },
-                            { time: "16.40", item: "Il ruolo dell'infermiere specialista - A. Cicalese" },
-                            { time: "17.00", item: "Discussione e casi pratici" }
+                            { time: "18.30", item: "L'influenza dell'attività sportiva sul pavimento pelvico - S. Giagio" },
+                            { time: "18.45", item: "Sport e pavimento pelvico in gravidanza - I. Baini" },
+                            { time: "18.55", item: "Return to run after pregnancy - E. Bassini" },
+                            { time: "19.05", item: "Wheelchair sport come strumento di riabilitazione - G. Farì" },
+                            { time: "19.15", item: "Discussione" }
                         ]
                     }
                 ]
@@ -494,19 +578,32 @@
                         program: [
                             { time: "08.00", item: "Alimentazione e microbiota intestinale - G. Bazzocchi" },
                             { time: "08.15", item: "Sedentarietà - E. Bertolucci" },
-                            { time: "08.30", item: "Alcol - S. Musco" }
+                            { time: "08.30", item: "Alcol - S. Musco" },
+                            { time: "08.45", item: "Fumo - E. Fragalà" },
+                            { time: "09.00", item: "Gaming - G. Mosiello" },
+                            { time: "09.15", item: "Ipersessualità - G. Sampogna" },
+                            { time: "09.30", item: "Sostanze stupefacenti - M.L. Gallo" },
+                            { time: "09.45", item: "Discussione" }
                         ]
                     },
                     {
                         id: "workshop-incontinenza-27",
                         time: "08.00-10.00",
-                        title: "WORKSHOP B - Incontinenza urinaria femminile",
+                        title: "WORKSHOP B - Incontinenza urinaria femminile: punti essenziali in una nuova era",
                         room: "auditorium",
                         type: "workshop",
                         moderators: "Coordinatori: M. Balzarro, V. Li Marzi",
                         program: [
-                            { time: "08.00", item: "Anatomia chirurgica del pavimento pelvico - G. Campagna" },
-                            { time: "08.12", item: "11 sfumature di incontinenza - L. Vacca" }
+                            { time: "08.00", item: "Anatomia chirurgica e funzionale del pavimento pelvico femminile - G. Campagna" },
+                            { time: "08.12", item: "11 sfumature di incontinenza urinaria femminile - L. Vacca" },
+                            { time: "08.24", item: "Urodinamica non invasiva ed invasiva nell'incontinenza urinaria - E. Rubilotta" },
+                            { time: "08.36", item: "Incontinenza urinaria da urgenza: da dove partire... - L. Pelizzari" },
+                            { time: "08.48", item: "... e dove arrivare - E. Russo" },
+                            { time: "09.00", item: "Incontinenza urinaria da sforzo: da dove partire... - L. De Palma" },
+                            { time: "09.12", item: "...dove arrivare - M. Balzarro" },
+                            { time: "09.24", item: "LUTS e prolasso organi pelvici - M. Serati" },
+                            { time: "09.36", item: "Complicanze dei trattamenti per incontinenza urinaria - E. Illiano" },
+                            { time: "09.48", item: "Discussione" }
                         ]
                     },
                     {
@@ -517,8 +614,14 @@
                         type: "workshop",
                         moderators: "Coordinatori: C. De Nunzio, F. Fusco",
                         program: [
-                            { time: "08.00", item: "Dalla TURP alle MIST - A. Cicione" },
-                            { time: "08.15", item: "Quale MIST per quale prostata - C. De Nunzio" }
+                            { time: "08.00", item: "Dalla TURP alle MIST: 40 anni di evoluzioni tecnologiche - A. Cicione" },
+                            { time: "08.15", item: "Quale MIST per quale prostata - C. De Nunzio" },
+                            { time: "08.30", item: "Quale MIST per quale paziente - P. Spatafora" },
+                            { time: "08.45", item: "Come definire l'outcome dopo MIST - C. Manfredi" },
+                            { time: "09.00", item: "Complicanze delle MIST - S. De Cillis" },
+                            { time: "09.15", item: "Quando le MIST falliscono - M. Gacci" },
+                            { time: "09.30", item: "Clinical case - A. Franco" },
+                            { time: "09.45", item: "Discussione" }
                         ]
                     },
                     {
@@ -529,67 +632,72 @@
                         type: "lettura",
                         moderators: "Introduce: A. Giammò",
                         program: [
-                            { time: "", item: "The central role of BPO in male LUTS - J. N. Cornu" }
+                            { time: "", item: "The central role of benign prostatic obstruction (BPO) in the management of male LUTS - J. N. Cornu" }
                         ]
                     },
                     {
-                        id: "chirurgia-robotica",
+                        id: "lettura-sinug",
+                        time: "10.30-10.50",
+                        title: "Lettura SINUG",
+                        room: "auditorium",
+                        type: "lettura",
+                        moderators: "Introduce: S. Musco",
+                        program: [
+                            { time: "", item: "How to manage chronic urinary retention in females? - S. Arlandis" }
+                        ]
+                    },
+                    {
+                        id: "lettura-tcs",
+                        time: "10.50-11.10",
+                        title: "Lettura Turkish Continence Society (TCS)",
+                        room: "auditorium",
+                        type: "lettura",
+                        moderators: "Introduce: F. Savoca",
+                        program: [
+                            { time: "", item: "How to manage chronic urinary retention in males? - A. Ergen" }
+                        ]
+                    },
+                    {
+                        id: "oab-goodbye",
+                        time: "11.10-11.30",
+                        title: "OAB: Goodbye Urodynamics",
+                        room: "auditorium",
+                        type: "sessione",
+                        moderators: "Moderatore: E. Finazzi Agrò",
+                        program: [
+                            { time: "", item: "Report on Future trial - Y. Al Salhi" }
+                        ]
+                    },
+                    {
+                        id: "chirurgia-robotica-27",
                         time: "11.30-12.30",
-                        title: "VIDEO TALK - Chirurgia Robotica Funzionale",
+                        title: "VIDEO TALK - Chirurgia Robotica Funzionale e ricostruttiva del basso tratto urinario",
                         room: "auditorium",
                         type: "sessione",
                         ecm: "ECM 1",
                         moderators: "Coordinatore: R. Schiavina",
                         program: [
                             { time: "11.30", item: "Plastica y-v nella sclerosi del collo - A. Antonelli" },
-                            { time: "11.38", item: "Risultati funzionali della neovescica - P. Gontero" }
+                            { time: "11.38", item: "Risultati funzionali della neovescica ortotopica - P. Gontero" },
+                            { time: "11.46", item: "Chirurgia robotica nel trattamento delle fistole - E. Brunocilla" },
+                            { time: "11.52", item: "Prostatectomia semplice robotica - M. Gacci" },
+                            { time: "12.00", item: "L'approccio robotico nelle stenosi del collo vescicale - C. Fiori" },
+                            { time: "12.20", item: "Discussione" }
                         ]
                     },
                     {
-                        id: "luts-neurodegenerative",
+                        id: "luts-neurodegenerative-27",
                         time: "11.30-12.30",
                         title: "LUTS nelle malattie neurodegenerative",
                         room: "napoleon",
                         type: "sessione",
-                        ecm: false,
                         moderators: "Moderatori: P. Cortelli, C. Leone, S. Musco",
                         program: [
-                            { time: "11.30", item: "Sinucleinopatie - G. Calandra Buonaura" },
-                            { time: "11.45", item: "Fenotipi neurodegenerativi - G. Sampogna" }
-                        ]
-                    }
-                ]
-            },
-            {
-                date: "2025-06-28",
-                dayName: "Sabato 28 Giugno",
-                sessions: [
-                    {
-                        id: "assemblea-soci",
-                        time: "09.00-10.00",
-                        title: "Assemblea Soci SIUD",
-                        room: "auditorium",
-                        type: "sessione",
-                        ecm: false,
-                        moderators: "",
-                        program: []
-                    },
-                    {
-                        id: "spazio-fic",
-                        time: "10.00-11.00",
-                        title: "Spazio FIC - FIC e SIUD: insieme per una Sanità migliore",
-                        room: "auditorium",
-                        type: "sessione",
-                        ecm: false,
-                        moderators: "Moderatori: A. Biroli, E. Ciotti, G. Del Popolo",
-                        program: [
-                            { time: "10.00", item: "Introduzione - G. Del Popolo" },
-                            { time: "10.10", item: "Pari opportunità - R. Carone" }
-                        ]
-                    }
-                ]
-            }
-        ];
+                            { time: "11.30", item: "Sinucleinopatie: Classificazione e Nuovi Criteri Diagnostici - G. Calandra Buonaura" },
+                            { time: "11.45", item: "Fenotipi neurodegenerativi e disfunzioni del basso tratto urinario - G. Sampogna" },
+                            { time: "11.55", item: "Terapia farmacologica o approccio multimodale? - A. Manassero" },
+                            { time: "12.05", item: "Neuromodulazione: effetti sintomatici versus effetti modificanti la malattia - G. Pelliccioni" },
+                            { time: "12.20", item: "Discussione" }
         // --- FINE DATI PROGRAMMA ---
 
         let currentFilters = {
